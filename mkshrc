@@ -1,0 +1,66 @@
+#export KORNY_VER=2
+#export KORNY_FOLDER="$HOME/korny"
+
+#export TERM="xterm-256color"
+#Here you change the prompt
+#PROMPT=broadchurch
+#HISTFILE="$HOME/.sh_history"
+#HISTSIZE=500000
+#.# "$KORNY_FOLDER/base.ksh"
+alias navi="~/navigate.sh"
+#set -A plugins_array -- \
+#android git_aliases #Load plugins by filename
+#load_plugs 
+
+#set -A completion_array -- \
+#git man ssh #Type completion file names here
+#load_completion 
+
+#. "$KORNY_FOLDER"/prompts/"$PROMPT".ksh
+#export PATH="$PATH:$KORNY_FOLDER/bin"
+#export PATH="$PATH:~/.local/bin"
+#eval "$(zoxide init posix --hook prompt )"
+
+
+#eval "$(zoxide init bash)"
+
+
+#alias z=_z
+export DEBUG_TARGETS="zoxide add "$PWD""
+if [[ -z "$STY" && -z "$IN_EMACS" && -z "$TERM_PROGRAM" && -z "$TMUX" ]]; then
+    # Connect to a screen session
+    tmux a
+fi
+
+export DISPLAY=:0
+alias ls="ls --color"
+alias l="ls -lah --color"
+##export ZELLIJ_AUTO_ATTACH=true
+#eval "$(zellij setup --generate-auto-start bash )"
+
+#clear
+#ksh ~/xmonadcolorscript
+
+#export _ZO_DATA_DIR=~/zodata
+#alias emacs="emacs --no-site-file --no-loadup -mm --no-site-lisp"
+
+#alias emc="emacsclient -s /tmp/emacs1001/server -c"
+fzf_history() {
+ local cmd
+ cmd=$(history | awk '{print $2}' | fzf --tac --preview 'echo {}' --preview-window=up:3:wrap)
+ [ -n "$cmd" ] && eval "$cmd"
+}
+alias hist="fzf_history"
+# Function to check directory and source file
+#check_and_source() {
+ #   dot_dir="/home/erel/dots"
+  #  if [[ "$PWD" == "$dot_dir" ]]; then
+  #      . mkshsrc
+  #  fi
+#}
+
+# Set up the trap
+export PS1_CMD1=$(git branch --show-current 2>/dev/null)
+export PS1='\n\[\e[32m\]\H\[\e[0m\]:\[\e[38;5;200m\]\u\[\e[0m\]-\[\e[38;5;45m\]\@\[\e[94m\]\w\[\e[0m\]*\[\e[38;5;160m\]${PS1_CMD1}\n\[\e[0m\]\\->>'
+
+#trap check_and_source DEBUG

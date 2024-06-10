@@ -1,0 +1,3 @@
+[submodule "wm/xmonad"]
+	path = wm/xmonad
+	url = https://github.com/oblivikun/xmonad
